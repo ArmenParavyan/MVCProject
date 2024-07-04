@@ -7,6 +7,7 @@ class Route {
     public string $defaultMethodName = 'index'; 
 
     public function __construct() {
+        
         if (empty($_GET['path'])) {
             $name = ucfirst($this->defaultControllerName); 
             $contPath = "App\\controllers\\" . $name . 'Controller';
@@ -29,7 +30,10 @@ class Route {
         if (class_exists($contPath)) {
             $controller = new $contPath();
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                // ?????????????????????????
+                
+                if (method_exists($controller, $methodName)) {
+                    call_user_func([$controller, $methodName], $_POST);
+                 } 
             } else {
                 if (method_exists($controller, $methodName)) {
                    call_user_func([$controller, $methodName]);

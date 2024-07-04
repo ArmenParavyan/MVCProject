@@ -8,7 +8,8 @@
 </head>
 <body>
     <div>
-        <a href='http://localhost/php-das/mvc/about'>About us</a>
+        <a href="<?php APP_URL ?>/php-das/mvc/about">About us</a>
+        <a href="<?php APP_URL ?>/php-das/mvc/user/index"> Users </a>
     </div>
 </body>
 </html>

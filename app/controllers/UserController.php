@@ -10,4 +10,11 @@ class UserController extends BaseController {
         require_once 'app/views/user/index.php';
     }
 
+    public function create() {
+        require_once 'app/views/user/create.php';
+    } 
+
+    public function addUser($request) {
+        echo "Aglchk";
+    }
 }
