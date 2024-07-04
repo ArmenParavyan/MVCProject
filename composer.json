@@ -1,0 +1,23 @@
+{
+    "name": "prooph/laravel-example",
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "framework/",
+            "App\\": "app/",
+            "Config\\": "config/",
+            "Database\\": "database/",
+            "Core\\": "core/"
+        },
+        "files": [
+            "routes/routes.php"
+        ]
+    }
+}
