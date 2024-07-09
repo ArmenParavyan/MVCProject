@@ -1,11 +1,14 @@
 <?php 
 
+namespace Database;
+
 class Database {
     private $host; 
     private $username; 
     private $password; 
     private $dbname; 
     private $connection; 
+    private static $instance = null;
 
     public function __construct() {
         $this->loadConfig();
@@ -27,4 +30,10 @@ class Database {
         return $this->connection;
     }
 
+    public static function getInstance() {
+        if (!self::$instance) {
+            self::$instance = new Database();
+        }
+        return self::$instance;
+    }
 }

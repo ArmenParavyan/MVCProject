@@ -3,10 +3,13 @@
 namespace App\controllers;
 
 use App\controllers\BaseController;
+use App\models\User;
 
 class UserController extends BaseController {
 
     public function index() {
+        $user = new User();
+        $data = $user->getAll(); 
         require_once 'app/views/user/index.php';
     }
 
@@ -15,6 +18,21 @@ class UserController extends BaseController {
     } 
 
     public function addUser($request) {
-        echo "Aglchk";
+        $createdUser = new User();
+        $createdUser->create($request); 
+        require_once 'app/views/user/index.php';
+    } 
+
+    public function delete($data) {
+        $user = new User(); 
+        $user->delete($data['id']); 
+        $data = $user->getAll();
+        require_once 'app/views/user/index.php';
+    }
+
+    public function edit($id) {
+        $user = new User();
+        $data = $user->getUserById($id); 
+        require_once 'app/views/user/edit.php';
     }
 }
