@@ -10,10 +10,15 @@ include_once 'app/views/includes/header.php';
     <title>Document</title>
 </head>
 <body>
-    <h2>About us</h2> 
-    <br>
+    <h2 style="text-align: center; margin: 10px auto;">
+        About us
+    </h2> 
     <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. A, officia odit dolore architecto est sed dolorem possimus assumenda sint, delectus consequuntur autem doloremque beatae. Porro quos culpa doloribus recusandae saepe.
+        Lorem ipsum dolor sit amet consectetur, 
+        adipisicing elit. A, officia odit dolore architecto 
+        est sed dolorem possimus assumenda sint, delectus 
+        consequuntur autem doloremque beatae. Porro quos 
+        culpa doloribus recusandae saepe.
     </p>
 </body>
 </html>

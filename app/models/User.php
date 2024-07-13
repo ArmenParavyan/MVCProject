@@ -11,11 +11,10 @@ class User extends Model {
         $name = $data['name'];
         $surname = $data['surname'];
         $age = $data['age'];
-        $delete = $data['delete'];
-        $sql = "INSERT INTO users (name, surname, age, delete, created_at, updated_at)
-                VALUES ('$name', '$surname', '$age', '$delete', '$date', '$date')";
+        $sql = "INSERT INTO users (name, surname, age, created_at, updated_at)
+                VALUES ('$name', '$surname', '$age', '$date', '$date')";
         if ($this->connection->query($sql)) {
-            echo 'user added';
+            echo '';
         } else {
             echo 'some error';
         }
@@ -24,10 +23,8 @@ class User extends Model {
     public function delete(int $id) {
         $sql = "DELETE FROM users WHERE id=$id";
         if ($this->connection->query($sql)) {
-            echo 'user deleted'; 
             return true;
         } else {
-            echo 'some error'; 
             return false;
         }
     }
@@ -43,6 +40,20 @@ class User extends Model {
         $resault = $this->connection->query($sql); 
         if ($resault->num_rows) {
             return $resault->fetch_assoc();
+        }
+    } 
+
+    public function edit($data) {
+        $id = $data['id'];
+        $name = $data['name'];
+        $surname = $data['surname'];
+        $age = $data['age']; 
+        $sql = "UPDATE users SET name='$name', surname='$surname', age=$age WHERE id=$id";
+        if ($this->connection->query($sql)) {
+            return true;
+        } else {
+            echo 'some error'; 
+            return false;
         }
     }
 }

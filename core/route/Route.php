@@ -38,8 +38,9 @@ class Route {
                 if (method_exists($controller, $methodName)) {
                     if (!empty($arrayOfPath[2])) {
                         call_user_func([$controller, $methodName], $arrayOfPath[2]);
+                    } else {
+                        call_user_func([$controller, $methodName]);
                     }
-                   call_user_func([$controller, $methodName]);
                 } 
             }
         }
