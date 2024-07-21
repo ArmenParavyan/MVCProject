@@ -2,49 +2,53 @@
 
 namespace App\controllers;
 
+session_start();
+
 use App\controllers\BaseController;
 use App\models\User;
 
-class UserController extends BaseController {  
+class UserController extends BaseController { 
+
+    public $user;
+
+    public function __construct() {
+        $this->user = new User();
+    }
 
     public function index() {
-        $user = new User();
-        $data = $user->getAll(); 
-        require_once 'app/views/user/index.php';
+        $data = $this->user->getAll(); 
+        return $this -> view("user/index", $data);
     }
 
     public function create() {
-        require_once 'app/views/user/create.php';
+        return $this->view("user/create");
     } 
+    
+    public function saveToSession($key, $data) {
+        $_SESSION[$key] = $data;
+    }
 
     public function addUser($request) {
-        $createdUser = new User();
-        $createdUser->create($request); 
-        // header("Location: " . APP_PATH . "app/views/user/index.php");
-        // exit();
-        $data = $createdUser->getAll(); 
-        print_r($data);
-        require_once 'app/views/user/index.php';
+        $this->user->create($request); 
+        $data = $this->user->getAll(); 
+        $this->saveToSession('users', $data->fetch_all(MYSQLI_ASSOC));
+        header("Location: /php-das/mvc/app/views/user/index.php");
+        exit();
     } 
 
     public function delete($id) {
-        $user = new User(); 
-        $user->delete($id); 
+        $this->user->delete($id); 
         echo json_encode(['success' => true]);
-        // $data = $user->getAll();
-        // require_once 'app/views/user/index.php';
     }
 
     public function getUser($id) {
-        $user = new User();
-        $data = $user->getUserById($id); 
-        require_once 'app/views/user/edit.php';
+        $data = $this->user->getUserById($id); 
+        return $this->view("user/edit", $data);
     }
 
     public function editUser($userData) {
-        $user = new User();
-        $user->edit($userData); 
-        $data = $user->getAll(); 
-        require_once 'app/views/user/index.php';
+        $this->user->edit($userData); 
+        $data = $this->user->getAll(); 
+        return $this->view("user/index", $data);
     }
 }

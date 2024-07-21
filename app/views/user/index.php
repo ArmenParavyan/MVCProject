@@ -1,16 +1,21 @@
 <?php 
-include_once 'app/views/includes/header.php';
+if (session_status() == PHP_SESSION_NONE) { 
+    session_start(); 
+}
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php-das/mvc/app/views/includes/header.php';
 ?>
 
     <h2 style="text-align: center;"> Our users </h2>
+   
     <div style="margin: 10px auto;">
-        <a href="<?php APP_URL ?>/php-das/mvc/user/create">
+        <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php-das/mvc/user/create">
             + Add user
         </a> 
     </div>
     <div style="display: flex; justify-content: center; align-items: center;">
+
 <?php  
-    if ($data->num_rows): 
+    if (isset($data) && $data->num_rows): 
 ?> 
     <table style="text-align: center;">
         <tr>
@@ -29,18 +34,42 @@ include_once 'app/views/includes/header.php';
                     </button>
                 </td>
                 <td>
-                    <a href="getUser/<?php echo($row['id'])?>">
+                    <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php-das/mvc/user/getUser/<?php echo($row['id'])?>">
                         Edit user
                     </a>
                 </td>
             </tr>
         <?php endwhile; ?>
     </table>
+    <?php elseif(isset($_SESSION['users'])): ?>
+        <table style="text-align: center;">
+        <tr>
+            <th>name</th>
+            <th>surname</th>
+            <th>age</th>
+        </tr>
+        <?php foreach ($_SESSION['users'] as $row): ?> 
+            <tr data-id="<?php echo $row['id'] ?>">
+                <td><?php echo htmlspecialchars($row['name']); ?></td>
+                <td><?php echo htmlspecialchars($row['surname']); ?></td>
+                <td><?php echo htmlspecialchars($row['age']); ?></td>
+                <td>
+                    <button class="deleteButton" data-id="<?php echo $row['id'] ?>"> 
+                        Delete 
+                    </button>
+                </td>
+                <td>
+                    <a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php-das/mvc/user/getUser/<?php echo($row['id'])?>">
+                        Edit user
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 <?php endif; ?>
     
 </div>
     
-
     <script>
         const deleteButtons = document.querySelectorAll(".deleteButton");
         deleteButtons.forEach(function(button) {
